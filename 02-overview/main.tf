@@ -17,3 +17,7 @@ resource "aws_instance" "example" {
  # count         = 4 
   for_each      = toset(["Instance_1", "Instance_2", "Instance_3",  "Instance_4"])
 }
+
+tags          = {
+ Name         = "server-${each.key}"
+}
