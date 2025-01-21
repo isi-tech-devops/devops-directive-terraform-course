@@ -2,7 +2,7 @@ terraform {
   # Assumes s3 bucket and dynamo DB table already set up
   # See /code/03-basics/aws-backend
   backend "s3" {
-    bucket         = "devops-directive-tf-state"
+    bucket         = "devops-security-tf-state"
     key            = "03-basics/web-app/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "terraform-state-locking"
@@ -23,7 +23,7 @@ provider "aws" {
 
 resource "aws_instance" "EC2_instance" {
   ami             = "ami-011899242bb902164" # Ubuntu 20.04 LTS // us-east-1
-  count = 4
+  count           = 4
   instance_type   = "t2.micro"
   security_groups = [aws_security_group.instances.name]
   user_data       = <<-EOF
@@ -45,7 +45,7 @@ resource "aws_instance" "EC2_instance" {
 #}
 
 resource "aws_s3_bucket" "bucket" {
-  bucket_prefix = "devops-directive-web-app-data"
+  bucket_prefix = "devops-security-web-app-data"
   force_destroy = true
 }
 
